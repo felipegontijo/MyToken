@@ -20,9 +20,10 @@
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const infuraKey = "7df2345999df40fa9ed678ea62b7ab1c";
+const infuraURL = 'https://ropsten.infura.io/v3/7df2345999df40fa9ed678ea62b7ab1c';
 
 const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
+const mnemonic = fs.readFileSync(".secret.txt").toString().trim();
 
 module.exports = {
   /**
@@ -35,24 +36,23 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 8545,
+      port: 7545,
       network_id: "*",
     },
-    rinkeby: {
-    provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/7df2345999df40fa9ed678ea62b7ab1c`),
-    network_id: 4,
-    gas: 4500000,
-    gasPrice: 10000000000,
+    ropsten: {
+    provider: () => new HDWalletProvider(mnemonic, infuraURL),
+    network_id: 3,
+    gas: 5500000,
     confirmations: 2,
     timeoutBlocks: 200,
-    skipDryRun: false
+    skipDryRun: true
     },
   },
 
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.7.1",
+      version: "0.7.0",
       docker: false,
       settings: {
         optimizer: {
